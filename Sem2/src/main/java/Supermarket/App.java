@@ -63,7 +63,7 @@ public class App {
          */
         private static void configureLogger () {
             try {
-                FileHandler fileHandler = new FileHandler("Supermarket.log");
+                FileHandler fileHandler = new FileHandler("Supermarket.txt");
                 SimpleFormatter formatter = new SimpleFormatter();
                 fileHandler.setFormatter(formatter);
                 logger.addHandler(fileHandler);
