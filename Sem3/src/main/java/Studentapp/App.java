@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import Studentapp.Domen.Student;
-import Studentapp.Domen.StudentGroup;
-import Studentapp.Domen.StudentStream;
+import Studentapp.Controllers.EmployeeController;
+import Studentapp.Controllers.TeacherController;
+import Studentapp.Domen.*;
+import Studentapp.Services.AverageAge;
+import Studentapp.Services.TeacherService;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -40,6 +42,16 @@ public class App {
         Student s3_4 = new Student("Don",  18, 888);
         Student s3_5 = new Student("Splinter",  40, 999);
 
+        Teacher t1 = new Teacher("Eric", 48, "mathematician");
+        Teacher t2 = new Teacher("Woz", 60, "programmer");
+        Teacher t3 = new Teacher("Paul", 55, "mycologist");
+        Teacher t4 = new Teacher("Andrew",  38, "neurobiologist");
+        Teacher t5 = new Teacher("Rock",  50, "gym teacher");
+
+        Employee e1 = new Employee("Freddy", 42, "cleaner");
+        Employee e2 = new Employee("Jason", 32, "security guard");
+        Employee e3 = new Employee("Ash", 55, "accountant");
+
         List<Student> listStud = new ArrayList<Student>();
         listStud.add(s1);
         listStud.add(s2);
@@ -72,6 +84,18 @@ public class App {
         listStud4.add(s3_3);
         listStud4.add(s3_4);
         listStud4.add(s3_5);
+
+        List<Teacher> listTeach = new ArrayList<>();
+        listTeach.add(t1);
+        listTeach.add(t2);
+        listTeach.add(t3);
+        listTeach.add(t4);
+        listTeach.add(t5);
+
+        List<Employee> listEmp = new ArrayList<>();
+        listEmp.add(e1);
+        listEmp.add(e2);
+        listEmp.add(e3);
 
         StudentGroup group4580 = new StudentGroup(listStud, 4580);
         StudentGroup group1234 = new StudentGroup(listStud2, 1234);
@@ -124,33 +148,90 @@ public class App {
 
 
 
-        // Sort the groups in the studentStream
-        Collections.sort(studentStream.getStudyGroups());
+//        // Sort the groups in the studentStream
+//        Collections.sort(studentStream.getStudyGroups());
+//
+//        // Output the sorted groups with a list of students to the console
+//        for (StudentGroup group : studentStream) {
+//            System.out.println(group); // This will call the toString method of the StudentGroup class
+//            List<Student> students = group.getGroup();
+//            for (Student student : students) {
+//                System.out.println(student); // This will call the toString method of the Student class
+//            }
+//            System.out.println("=========================================================");
+//        }
 
-        // Output the sorted groups with a list of students to the console
-        for (StudentGroup group : studentStream) {
-            System.out.println(group); // This will call the toString method of the StudentGroup class
-            List<Student> students = group.getGroup();
-            for (Student student : students) {
-                System.out.println(student); // This will call the toString method of the Student class
-            }
-            System.out.println("=========================================================");
-        }
+//        // Test_1 Shows number of groups
+//        System.out.println("Number of groups: " + studentStream.getStudyGroups().size());
+//
+//        System.out.println("=========================================================");
+//
+//        // Test_2 Iterate over the groups and print the group IDs
+//        System.out.println("Group IDs:");
+//        for (StudentGroup group : studentStream) {
+//            System.out.println(group.getIdGroup());
+//        }
+//
+//        System.out.println("=========================================================");
+//
+//        // Test_3 Override StudentStream
+//        System.out.println(studentStream);
 
-        // Test_1 Shows number of groups
-        System.out.println("Number of groups: " + studentStream.getStudyGroups().size());
 
-        System.out.println("=========================================================");
+//        PersonComparator<Student> comS = new PersonComparator<>();
+//        comS.compare(s1, s2);
+//
+//        Teacher t1 = new Teacher("Иван", 25, "Docent");
+//        Teacher t2 = new Teacher("Игорь", 23, "Professor");
+//
+//        PersonComparator<Teacher> comT = new PersonComparator<>();
+//        comT.compare(t1, t2);
+//
+//        //comS.compare(s1, t2);
+//        PersonComparator<Person> comP = new PersonComparator<>();
+//        comP.compare(s1, t2);
+//
+//        Employee e1 = new Employee("Федорович", 60, "разнорабочим");
+//        //EmployeeController empControll = new EmployeeController();
+//        EmployeeController.paySalary(e1);
+//        // EmployeeController.paySalary(s1);
+//        //empControll.paySalary(e1);
+//        //empControll.paySalary(s1);
 
-        // Test_2 Iterate over the groups and print the group IDs
-        System.out.println("Group IDs:");
-        for (StudentGroup group : studentStream) {
-            System.out.println(group.getIdGroup());
-        }
+        // Add teachers to the TeacherService
+        TeacherService teacherService = new TeacherService();
+        teacherService.create(t1.getName(), t1.getAge());
+        teacherService.create(t2.getName(), t2.getAge());
+        teacherService.create(t3.getName(), t3.getAge());
+        teacherService.create(t4.getName(), t4.getAge());
+        teacherService.create(t5.getName(), t5.getAge());
 
-        System.out.println("=========================================================");
+        // Display the sorted list of teachers
+        teacherService.displaySortedTeachers();
 
-        // Test_3 Override StudentStream
-        System.out.println(studentStream);
+//        // Add teachers to the TeacherService
+//        TeacherController teacherController = new TeacherController();
+//        teacherController.create(t1.getName(), t1.getAge());
+//        teacherController.create(t2.getName(), t2.getAge());
+//        teacherController.create(t3.getName(), t3.getAge());
+//        teacherController.create(t4.getName(), t4.getAge());
+//        teacherController.create(t5.getName(), t5.getAge());
+//
+//        // Display the sorted list of teachers
+//        TeacherService teacherService = new TeacherService();
+//        teacherService.displaySortedTeachers();
+
+        // Calculate and print the average ages
+        AverageAge<Student> studentAverageAge = new AverageAge<>(listStud);
+        double averageStudentAge = studentAverageAge.calculateAverageAge();
+        System.out.println("Average Student Age: " + averageStudentAge);
+
+        AverageAge<Teacher> teacherAverageAge = new AverageAge<>(listTeach);
+        double averageTeacherAge = teacherAverageAge.calculateAverageAge();
+        System.out.println("Average Teacher Age: " + averageTeacherAge);
+
+        AverageAge<Employee> employeeAverageAge = new AverageAge<>(listEmp);
+        double averageEmployeeAge = employeeAverageAge.calculateAverageAge();
+        System.out.println("Average Employee Age: " + averageEmployeeAge);
     }
 }
