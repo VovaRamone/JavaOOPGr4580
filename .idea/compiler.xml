@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Sem2" />
         <module name="Sem1" />
+        <module name="Sem6" />
         <module name="Sem5" />
         <module name="Sem3" />
       </profile>
